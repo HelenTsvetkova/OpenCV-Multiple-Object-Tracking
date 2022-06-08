@@ -36,12 +36,13 @@ if not args.get("video", False):
     time.sleep(1.0)
 # otherwise, grab a reference to the video file
 else:
-    vs = cv2.VideoCapture(args["video"])
+    # vs = cv2.VideoCapture(args["video"])
+    vs = cv2.VideoCapture("/home/helen/DataSets/MOT20/train/MOT20-01/video/" + str(args["video"]).casefold())
 
 # load the ground truth file
 videoName = args["video"]
 videoNameSplitted = videoName.split('.')
-groundTruthFile = pd.read_csv("GroundTruth\\" + videoNameSplitted[0] + "\\gt.txt", ",", header=None)
+groundTruthFile = pd.read_csv("./GroundTruth/" + videoNameSplitted[0] + "/gt.txt", ",", header=None)
 # rename the columns so we know what are we working with
 groundTruthFile['frameNumber'] = groundTruthFile[0]
 groundTruthFile['objectId'] = groundTruthFile[1]
