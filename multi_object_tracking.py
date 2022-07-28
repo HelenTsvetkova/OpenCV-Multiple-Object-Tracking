@@ -28,6 +28,7 @@ OPENCV_OBJECT_TRACKERS = {
 }
 # initialize OpenCV's special multi-object tracker
 trackers = cv2.MultiTracker_create()
+labels = []
 
 # if a video path was not supplied, grab the reference to the web cam
 if not args.get("video", False):
@@ -100,10 +101,13 @@ while True:
    
     # loop over the bounding boxes and draw then on the frame
     objectCnt = 0
-    for box in boxes:
+    # for box in boxes:
+    for id, box in enumerate(boxes):
         #print(str(box) + " " + str(idOfObject[cnt]))
         (x, y, w, h) = [int(v) for v in box]
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        lbl = labels[id]
+        cv2.putText(frame, lbl, (x,y),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
         f.write(str(frameCounter) + "," + str(idOfObject[objectCnt]) + "," + str(x) + "," + str(y) + "," + str(w) + "," + str(h) + "\n")
         objectCnt += 1
 
@@ -142,6 +146,7 @@ while True:
                     if cnt + 1 <= thresholdObjects:
                         tracker = OPENCV_OBJECT_TRACKERS[args["tracker"]]()
                         trackers.add(tracker, frame, box)
+                        labels.append(str(x))
                         cnt += 1 # increase the number of tracked objects
                         print("Start tracking " + str(cnt))
                         # set the object to be initialized - ignore all future occurences

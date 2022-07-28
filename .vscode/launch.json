@@ -5,12 +5,28 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Текущий файл",
+            "name": "MOT20",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "multi_object_tracking.py",
             "console": "integratedTerminal",
-            "justMyCode": true
+            "justMyCode": false,
+            "args": [
+                "-v", "MOT20-01.avi",
+                "--t", "kcf"
+            ]
+        },
+        {
+            "name": "MTA",
+            "type": "python",
+            "request": "launch",
+            "program": "MTA_multi_object_tracking.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": [
+                "--t", "kcf",
+                "--camera-id", "0"
+            ]
         }
     ]
 }
